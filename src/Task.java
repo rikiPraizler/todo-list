@@ -8,20 +8,29 @@ public class Task {
     private String description;
     private EnumStatus status;
 
-    public Task() {
+    public Task(String title) {
         this.id = nextId++;
+        this.title = title;
+        this.status = EnumStatus.NEW;
+    }
+
+    public Task(String title, String description) {
+        this.id = nextId++;
+        this.title = title;
+        this.description = description;
+        this.status = EnumStatus.NEW;
+    }
+
+    public Task(String title, EnumStatus status) {
+        this.id = nextId++;
+        this.title = title;
+        this.status = status;
     }
 
     public Task(String title, String description, EnumStatus status) {
         this.id = nextId++;
         this.title = title;
         this.description = description;
-        this.status = status;
-    }
-
-    public Task(String title, EnumStatus status) {
-        this.id = nextId++;
-        this.title = title;
         this.status = status;
     }
 
