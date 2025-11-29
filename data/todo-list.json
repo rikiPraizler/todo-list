@@ -1,0 +1,13 @@
+[
+  {
+    "id": 1,
+    "title": "go shopping",
+    "status": "NEW"
+  },
+  {
+    "id": 2,
+    "title": "do homeWork",
+    "description": "solve exercises",
+    "status": "IN_PROGRESS"
+  }
+]
