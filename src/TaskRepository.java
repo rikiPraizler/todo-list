@@ -37,11 +37,8 @@ public class TaskRepository {
         return tasks;
     }
 
-    //Adds a new task to the task list.
-    public void add(Task t) throws Exception {
-        List<Task> tasks = loadTasksFromFile();
-        tasks.add(t);
-
+    //Saves the given list of tasks to the JSON data file.
+    private void saveTasksToFile(List<Task> tasks) throws Exception {
         File file = new File("../data/todo-list.json");
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(file))) {
             bw.write("[");
@@ -53,6 +50,13 @@ public class TaskRepository {
         } catch (Exception e) {
             throw e;
         }
+    }
+
+    //Adds a new task to the task list.
+    public void add(Task t) throws Exception {
+        List<Task> tasks = loadTasksFromFile();
+        tasks.add(t);
+        saveTasksToFile(tasks);
     }
 
     //Updates task in the task list.
@@ -66,37 +70,14 @@ public class TaskRepository {
                 break;
             }
         }
-        File file = new File("../data/todo-list.json");
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(file))) {
-            bw.write("[");
-            for (int i = 0; i < tasks.size(); i++) {
-                bw.write(tasks.get(i).taskToJson());
-                if (i != tasks.size() - 1) bw.write(",");
-            }
-            bw.write("]");
-        } catch (Exception e) {
-            throw e;
-        }
+        saveTasksToFile(tasks);
     }
 
-    //Updates task in the task list.
+    //deletes task from the task list.
     public void delete(Task t) throws Exception {
         List<Task> tasks = loadTasksFromFile();
         tasks.removeIf(a -> a.getId() == t.getId());
-
-        File file = new File("../data/todo-list.json");
-        try (
-                BufferedWriter bw = new BufferedWriter(new FileWriter(file))) {
-            bw.write("[");
-            for (int i = 0; i < tasks.size(); i++) {
-                bw.write(tasks.get(i).taskToJson());
-                if (i != tasks.size() - 1) bw.write(",");
-            }
-            bw.write("]");
-        } catch (
-                Exception e) {
-            throw e;
-        }
+        saveTasksToFile(tasks);
     }
 
 }
