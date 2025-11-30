@@ -4,7 +4,7 @@ import java.util.List;
 
 public class TaskRepository {
     //Loads the tasks from the data file
-    private List<Task> loadTasksFromFile() throws Exception {
+    public static List<Task> loadTasksFromFile() throws Exception {
         List<Task> tasks = new ArrayList<>();
         File file = new File("../data/todo-list.json");
         if (!file.exists()) return tasks;
@@ -38,7 +38,7 @@ public class TaskRepository {
     }
 
     //Saves the given list of tasks to the JSON data file.
-    private void saveTasksToFile(List<Task> tasks) throws Exception {
+    public static void saveTasksToFile(List<Task> tasks) throws Exception {
         File file = new File("../data/todo-list.json");
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(file))) {
             bw.write("[");
