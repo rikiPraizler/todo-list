@@ -6,7 +6,7 @@
 public class Task {
 
     //Auto-incremented counter used to assign unique IDs to tasks.
-    private static int nextId = 1;
+    private static int nextId = 4;
 
     //Unique identifier of the task.
     private int id;
@@ -104,16 +104,25 @@ public class Task {
     public static Task jsonToTask(String json) {
         Task task = new Task();
         json = json.replaceAll("[{}\"]", "");
-        String[] parts = json.split(",");
+
+        String[] parts = json.split(",(?=[a-zA-Z]+:)");
+
         for (String part : parts) {
-            String[] kv = part.split(":");
-            switch (kv[0].trim()) {
-                case "id" -> task.setId(Integer.parseInt(kv[1].trim()));
-                case "title" -> task.setTitle(kv[1].trim());
-                case "description" -> task.setDescription(kv[1].trim());
-                case "status" -> task.setStatus(EnumStatus.valueOf(kv[1].trim()));
+            String[] kv = part.split(":", 2);
+            if (kv.length < 2) continue;
+            String key = kv[0].trim();
+            String value = kv[1].trim();
+
+            switch (key) {
+                case "id" -> task.setId(Integer.parseInt(value));
+                case "title" -> task.setTitle(value);
+                case "description" -> task.setDescription(value);
+                case "status" -> task.setStatus(EnumStatus.valueOf(value));
             }
         }
+
         return task;
     }
+
+
 }
