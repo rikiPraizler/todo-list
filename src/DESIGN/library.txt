@@ -1,0 +1,94 @@
+**DESIGN
+1.
+* endpoints
+ Books:
+ GET api/books - get all books
+ GET api/books/{id} - get book by id
+ POST api/books - create new book
+ PUT api/books/{id} - update book by id
+ DELETE api/books/{id} - delete book by id
+
+ Readers:
+ GET /api/readers - get all readers
+ GET /api/readers/{id} - get reader by id
+ POST /api/readers - create new reader
+ PUT /api/readers/{id} - update reader by id
+ DELETE /api/readers/{id} - delete reader by id
+
+ Loans:
+ GET /api/loans – get all loans
+ GET /api/loans/book/{bookId} - get loans of book by bookId
+ GET /api/loans/reader/{readerId} – get loans of reader by readerId
+ POST /api/loans – create laon
+ PUT /api/loans/{id}/return - update return loan by id
+
+* functions
+ Books:
+ ADD
+ UPDATE
+ DELETE
+ READ
+ SEARCH
+
+ Reader:
+ ADD
+ UPDATE
+ DELETE
+
+ Loans:
+ ADD LOAN
+ RETURN BOOK
+ CHECK NUM BOOKS BORROWED
+
+* DTOs
+ Book
+{
+  "id": int,
+  "title": String,
+  "author": String,
+  "year": int,
+  "category": String,
+  "code": int,
+  "available": Boolean
+}
+
+ Reader
+ {
+   "id": int,
+   "name": String,
+   "phone": String
+ }
+
+ Loan
+ {
+   "id": int,
+   "bookId": int,
+   "readerId": int,
+   "loanDate": date,
+   "returnDate": date,
+   "isReturned": Boolean
+ }
+
+ CreateBookRequest
+ {
+   "title": String,
+   "author": String,
+   "year": int,
+   "code": String
+ }
+
+ CreateLoanRequest
+ {
+   "bookId": 1,
+   "readerId": 10
+ }
+
+* required field
+ Book
+ id, title, author,year, code
+
+ Reader
+ id, name
+
+ Loan
+ id, bookId, readerId
