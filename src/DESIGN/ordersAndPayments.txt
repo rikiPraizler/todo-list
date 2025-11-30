@@ -1,0 +1,20 @@
+**DESIGN
+2. Orders and payments
+* classes:
+ Order
+ OrderItem
+ Payment
+ Customer
+ Product
+
+* Responsibilities of Each Class
+ Order - Manage order status, calculate total amount, store list of order items
+ OrderItem - Calculate item price (quantity * price), be part of an order
+ Payment - Ensure payment belongs to an existing order, update order status to PAID after successful payment
+ Customer - Manage customer details, identify orders belonging to the customer
+ Product - Provide product information, check stock availability
+
+* How to Ensure a Payment is Linked to the Correct Order
+ 1. Check that the order exists – Payment.orderId must match an existing Order.id.
+ 2. Verify payment amount – Payment.amount must match Order.totalAmount.
+ 3. Update order status only after successful payment – if Payment.status = SUCCESS, then set Order.status = PAID.

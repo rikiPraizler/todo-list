@@ -1,5 +1,5 @@
 **DESIGN
-1.
+1. Library
 * endpoints
  Books:
  GET api/books - get all books
