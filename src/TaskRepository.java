@@ -6,7 +6,7 @@ public class TaskRepository {
     //Loads the tasks from the data file
     public static List<Task> loadTasksFromFile() throws Exception {
         List<Task> tasks = new ArrayList<>();
-        File file = new File("../data/todo-list.json");
+        File file = new File("D:\\USERS\\user\\Desktop\\todo-list-app\\data\\todo-list.json");
         if (!file.exists()) return tasks;
 
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
@@ -39,7 +39,7 @@ public class TaskRepository {
 
     //Saves the given list of tasks to the JSON data file.
     public static void saveTasksToFile(List<Task> tasks) throws Exception {
-        File file = new File("../data/todo-list.json");
+        File file = new File("D:\\USERS\\user\\Desktop\\todo-list-app\\data\\todo-list.json");
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(file))) {
             bw.write("[");
             for (int i = 0; i < tasks.size(); i++) {
@@ -92,7 +92,7 @@ public class TaskRepository {
     }
 
     //Returns the task list.
-    public List listAll() throws Exception {
+    public List<Task> listAll() throws Exception {
         return loadTasksFromFile();
     }
 
