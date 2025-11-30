@@ -2,12 +2,19 @@
   {
     "id": 1,
     "title": "go shopping",
-    "status": "NEW"
+    "description": "",
+    "status": "DONE"
   },
   {
     "id": 2,
-    "title": "do homeWork",
-    "description": "solve exercises",
+    "title": "do homework",
+    "description": "solve the exercises",
     "status": "IN_PROGRESS"
+  },
+  {
+    "id": 3,
+    "title": "swimming",
+    "description": "go swimming",
+    "status": "NEW"
   }
 ]
