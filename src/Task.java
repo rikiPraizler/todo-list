@@ -1,6 +1,7 @@
 //Represents a task in the todo-list application.
-//olds the task's ID, title, description and status.
+//holds the task's ID, title, description,
 //and a status defined by EnumStatus.
+//Provides multiple constructors for different initialization options.
 
 public class Task {
 
@@ -19,39 +20,27 @@ public class Task {
     //Current status of the task.
     private EnumStatus status;
 
-    public Task() {
-        this.id = nextId++;
-        this.title = "";
-        this.description = "";
-        this.status = EnumStatus.NEW;
-    }
-
-    public Task(String title) {
-        this.id = nextId++;
-        this.title = title;
-        this.description = "";
-        this.status = EnumStatus.NEW;
-    }
-
-    public Task(String title, String description) {
-        this.id = nextId++;
-        this.title = title;
-        this.description = description;
-        this.status = EnumStatus.NEW;
-    }
-
-    public Task(String title, EnumStatus status) {
-        this.id = nextId++;
-        this.title = title;
-        this.description = "";
-        this.status = status;
-    }
-
     public Task(String title, String description, EnumStatus status) {
         this.id = nextId++;
         this.title = title;
         this.description = description;
         this.status = status;
+    }
+
+    public Task() {
+        this("", "", EnumStatus.NEW);
+    }
+
+    public Task(String title) {
+        this(title, "", EnumStatus.NEW);
+    }
+
+    public Task(String title, String description) {
+        this(title, description, EnumStatus.NEW);
+    }
+
+    public Task(String title, EnumStatus status) {
+        this(title, "", status);
     }
 
     public static int getNextId() {
