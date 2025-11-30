@@ -30,13 +30,23 @@ public class TaskService {
     //Sort the task list by Status.
     public List<Task> sortTaskListByStatus() throws Exception {
         List<Task> tasks = TaskRepository.loadTasksFromFile();
-        Map<String, Integer> order = Map.of(
-                "NEW", 1,
-                "IN_PROGRESS", 2,
-                "DONE", 3
+
+        Map<EnumStatus, Integer> order = Map.of(
+                EnumStatus.NEW, 1,
+                EnumStatus.IN_PROGRESS, 2,
+                EnumStatus.DONE, 3
         );
-        tasks.sort((t1, t2) -> order.get(t1.getStatus()) - order.get(t2.getStatus()));
+
+        tasks.sort((t1, t2) -> {
+            Integer o1 = order.get(t1.getStatus());
+            Integer o2 = order.get(t2.getStatus());
+
+            if (o1 == null) o1 = 0;
+            if (o2 == null) o2 = 0;
+
+            return o1 - o2;
+        });
+
         return tasks;
     }
-
 }
