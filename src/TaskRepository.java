@@ -1,13 +1,10 @@
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class TaskRepository {
     //Loads the tasks from the data file
-    private List<Task> loadTasksFromFile() throws IOException {
+    private List<Task> loadTasksFromFile() throws Exception {
         List<Task> tasks = new ArrayList<>();
         File file = new File("../data/todo-list.json");
         if (!file.exists()) return tasks;
@@ -40,6 +37,67 @@ public class TaskRepository {
         return tasks;
     }
 
+    //Adds a new task to the task list.
+    public void add(Task t) throws Exception {
+        List<Task> tasks = loadTasksFromFile();
+        tasks.add(t);
+
+        File file = new File("../data/todo-list.json");
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(file))) {
+            bw.write("[");
+            for (int i = 0; i < tasks.size(); i++) {
+                bw.write(tasks.get(i).taskToJson());
+                if (i != tasks.size() - 1) bw.write(",");
+            }
+            bw.write("]");
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+
+    //Updates task in the task list.
+    public void update(Task newT) throws Exception {
+        List<Task> tasks = loadTasksFromFile();
+        for (Task t : tasks) {
+            if (t.getId() == newT.getId()) {
+                t.setTitle(newT.getTitle());
+                t.setDescription(newT.getDescription());
+                t.setStatus(newT.getStatus());
+                break;
+            }
+        }
+        File file = new File("../data/todo-list.json");
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(file))) {
+            bw.write("[");
+            for (int i = 0; i < tasks.size(); i++) {
+                bw.write(tasks.get(i).taskToJson());
+                if (i != tasks.size() - 1) bw.write(",");
+            }
+            bw.write("]");
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+
+    //Updates task in the task list.
+    public void delete(Task t) throws Exception {
+        List<Task> tasks = loadTasksFromFile();
+        tasks.removeIf(a -> a.getId() == t.getId());
+
+        File file = new File("../data/todo-list.json");
+        try (
+                BufferedWriter bw = new BufferedWriter(new FileWriter(file))) {
+            bw.write("[");
+            for (int i = 0; i < tasks.size(); i++) {
+                bw.write(tasks.get(i).taskToJson());
+                if (i != tasks.size() - 1) bw.write(",");
+            }
+            bw.write("]");
+        } catch (
+                Exception e) {
+            throw e;
+        }
+    }
 
 }
 
