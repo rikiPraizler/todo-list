@@ -1,10 +1,22 @@
+//Represents a task in the todo-list application.
+//olds the task's ID, title, description and status.
+//and a status defined by EnumStatus.
 
 public class Task {
 
+    //Auto-incremented counter used to assign unique IDs to tasks.
     private static int nextId = 1;
+
+    //Unique identifier of the task.
     private int id;
+
+    //Short title describing the task.
     private String title;
+
+    //Optional detailed description of the task.
     private String description;
+
+    //Current status of the task.
     private EnumStatus status;
 
     public Task() {
@@ -78,6 +90,8 @@ public class Task {
         this.status = status;
     }
 
+    //Returns a readable string of the task.
+    //useful for debugging or logging.
     @java.lang.Override
     public java.lang.String toString() {
         return "Task: " +
@@ -87,6 +101,7 @@ public class Task {
                 ", status=" + status;
     }
 
+    //Converting from Task object to Json
     public String taskToJson() {
         return "{"
                 + "\"id\":" + id + ","
@@ -96,6 +111,7 @@ public class Task {
                 + "}";
     }
 
+    //Converting from Json to Task object
     public static Task jsonToTask(String json) {
         Task task = new Task();
         json = json.replaceAll("[{}\"]", "");

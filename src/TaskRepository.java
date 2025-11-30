@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TaskRepository {
-
+    //Loads the tasks from the data file
     private List<Task> loadTasksFromFile() throws IOException {
         List<Task> tasks = new ArrayList<>();
         File file = new File("../data/todo-list.json");
@@ -33,11 +33,13 @@ public class TaskRepository {
                 }
             }
 
-        } catch (Exception e){
+        } catch (Exception e) {
             throw e;
         }
 
         return tasks;
     }
+
+
 }
 
