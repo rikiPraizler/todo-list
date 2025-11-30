@@ -26,9 +26,7 @@ public class Main {
             System.out.println("6. Mark Task as DONE");
             System.out.println("7. Search Tasks");
             System.out.println("8. Sort Tasks by Status");
-//            System.out.println("0. Exit");
             System.out.print("Choose option (1-8) ");
-//            System.out.print("to exit the Todo List Manager enter 0: ");
             option = scanner.nextInt();
 
             scanner.nextLine();
@@ -65,7 +63,6 @@ public class Main {
                     String desc = scanner.nextLine();
                     t = new Task(title, desc, EnumStatus.NEW);
                     repo.add(t);
-//                    TaskRepository.add(t);
                     System.out.println("Task added successfully!");
                     System.out.println(t.toString());
                 }
@@ -93,19 +90,6 @@ public class Main {
                     }
                 }
                 break;
-//                case 4: {
-//                    System.out.print("Enter Task ID to display: ");
-//                    int idToGet = scanner.nextInt();
-//                    scanner.nextLine();
-//
-//                    try {
-//                        Task task = repo.getById(idToGet);
-//                        System.out.println(task);
-//                    } catch (Exception e) {
-//                        System.out.println(e.getMessage());
-//                    }
-//                    break;
-//                }
                 case 5: {
                     System.out.print("Enter Task ID to delete: ");
                     int deleteId = scanner.nextInt();
