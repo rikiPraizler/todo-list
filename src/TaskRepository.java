@@ -74,10 +74,26 @@ public class TaskRepository {
     }
 
     //deletes task from the task list.
-    public void delete(Task t) throws Exception {
+    public void delete(int id) throws Exception {
         List<Task> tasks = loadTasksFromFile();
-        tasks.removeIf(a -> a.getId() == t.getId());
+        tasks.removeIf(a -> a.getId() == id);
         saveTasksToFile(tasks);
+    }
+
+    //Returns task from the task list by ID.
+    public Task getById(int id) throws Exception {
+        List<Task> tasks = loadTasksFromFile();
+        for (Task t : tasks) {
+            if (t.getId() == id) {
+                return t;
+            }
+        }
+        throw new Exception("Task with ID " + id + " not found");
+    }
+
+    //Returns the task list.
+    public List listAll() throws Exception {
+        return loadTasksFromFile();
     }
 
 }
