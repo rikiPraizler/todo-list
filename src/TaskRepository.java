@@ -3,11 +3,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TaskRepository {
+    private List<Task> tasksList = new ArrayList<>();
+    private File file = new File("data/todo-list.json");
+
+    public TaskRepository() throws Exception {
+        loadTasksFromFile();
+    }
     //Loads the tasks from the data file
-    public static List<Task> loadTasksFromFile() throws Exception {
-        List<Task> tasks = new ArrayList<>();
-        File file = new File("D:\\USERS\\user\\Desktop\\todo-list-app\\data\\todo-list.json");
-        if (!file.exists()) return tasks;
+    public void loadTasksFromFile() throws Exception {
+        if (!file.exists()) return;
 
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             StringBuilder sb = new StringBuilder();
@@ -25,44 +29,39 @@ public class TaskRepository {
                         String item = items[i];
                         if (i != 0) item = "{" + item;
                         if (i != items.length - 1) item = item + "}";
-                        tasks.add(Task.jsonToTask(item));
+                        tasksList.add(Task.jsonToTask(item));
                     }
                 }
             }
 
         } catch (Exception e) {
-            throw e;
+            System.out.println(e.getMessage());
         }
-
-        return tasks;
     }
 
     //Saves the given list of tasks to the JSON data file.
-    public static void saveTasksToFile(List<Task> tasks) throws Exception {
-        File file = new File("D:\\USERS\\user\\Desktop\\todo-list-app\\data\\todo-list.json");
+    public void saveTasksToFile() throws Exception {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(file))) {
             bw.write("[");
-            for (int i = 0; i < tasks.size(); i++) {
-                bw.write(tasks.get(i).taskToJson());
-                if (i != tasks.size() - 1) bw.write(",");
+            for (int i = 0; i < tasksList.size(); i++) {
+                bw.write(tasksList.get(i).taskToJson());
+                if (i != tasksList.size() - 1) bw.write(",");
             }
             bw.write("]");
         } catch (Exception e) {
-            throw e;
+            System.out.println(e.getMessage());
         }
     }
 
     //Adds a new task to the task list.
     public void add(Task t) throws Exception {
-        List<Task> tasks = loadTasksFromFile();
-        tasks.add(t);
-        saveTasksToFile(tasks);
+        tasksList.add(t);
+        saveTasksToFile();
     }
 
     //Updates task in the task list.
     public void update(Task newT) throws Exception {
-        List<Task> tasks = loadTasksFromFile();
-        for (Task t : tasks) {
+        for (Task t : tasksList) {
             if (t.getId() == newT.getId()) {
                 t.setTitle(newT.getTitle());
                 t.setDescription(newT.getDescription());
@@ -70,20 +69,18 @@ public class TaskRepository {
                 break;
             }
         }
-        saveTasksToFile(tasks);
+        saveTasksToFile();
     }
 
     //deletes task from the task list.
     public void delete(int id) throws Exception {
-        List<Task> tasks = loadTasksFromFile();
-        tasks.removeIf(a -> a.getId() == id);
-        saveTasksToFile(tasks);
+        tasksList.removeIf(a -> a.getId() == id);
+        saveTasksToFile();
     }
 
     //Returns task from the task list by ID.
     public Task getById(int id) throws Exception {
-        List<Task> tasks = loadTasksFromFile();
-        for (Task t : tasks) {
+        for (Task t : tasksList) {
             if (t.getId() == id) {
                 return t;
             }
@@ -92,8 +89,8 @@ public class TaskRepository {
     }
 
     //Returns the task list.
-    public List<Task> listAll() throws Exception {
-        return loadTasksFromFile();
+    public List<Task> listAll(){
+        return tasksList;
     }
 
 }
