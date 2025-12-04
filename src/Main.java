@@ -1,4 +1,3 @@
-import java.io.File;
 import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
@@ -6,7 +5,7 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) throws Exception {
         TaskRepository repo = new TaskRepository();
-        TaskService service = new TaskService();
+        TaskService service = new TaskService(repo);
         Scanner scanner = new Scanner(System.in);
         int option = 1;
         Task t;
@@ -95,8 +94,8 @@ public class Main {
                     int deleteId = scanner.nextInt();
                     scanner.nextLine();
                     try {
-                        repo.getById(deleteId); // רק לבדוק שהוא קיים
-                        repo.delete(deleteId);  // אם עבר את זה - הוא קיים
+                        repo.getById(deleteId);
+                        repo.delete(deleteId);
                         System.out.println("Task deleted successfully!");
                     } catch (Exception e) {
                         System.out.println("Task not found!");
